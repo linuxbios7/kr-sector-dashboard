@@ -24,7 +24,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Pretendard","
 .wrap{max-width:1200px;margin:0 auto;padding:20px 16px 48px}
 header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;justify-content:space-between;margin-bottom:12px}
 h1{font-size:22px;margin:0}
-.meta{color:var(--muted);font-size:12px}
+.meta{color:var(--muted);font-size:12px;text-align:right;line-height:1.55}
 nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px}
 nav span{padding:6px 14px;border-radius:999px;background:var(--chip);color:var(--muted);white-space:nowrap;font-size:13px}
 nav span.on{background:var(--accent);color:#fff;font-weight:600}
@@ -104,7 +104,11 @@ const cell = (v, d = 1, suf = '') => v == null ? '<span class="na">-</span>' : f
 const capTxt = v => v == null ? '-' : v >= 10000 ? fmt(v / 10000, 1) + '조' : fmt(v, 0) + '억';
 const median = a => { a = a.filter(x => x != null).sort((x, y) => x - y); if (!a.length) return null; const m = a.length >> 1; return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2; };
 
-$('meta').textContent = `업데이트 ${D.updated}`;
+const B = D.basis || {};
+$('meta').innerHTML = `업데이트 ${D.updated}`
+  + `<br>PER·PBR: ${B.ttm ? `최근 4분기 EPS·${B.ttm} BPS` : '최근 확정 실적'} 기준`
+  + `<br>Fwd P/E: ${B.fwd || '올해'} 컨센서스 EPS`
+  + `<br>ROE: 확정 ${B.roe || '-'} · 추정 ${B.fwd || '-'}`;
 $('src').textContent = D.priceSource;
 $('src2').textContent = D.fundamentalSource;
 

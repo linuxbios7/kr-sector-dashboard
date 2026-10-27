@@ -1,7 +1,12 @@
 window.ALL_DATA = {
- "updated": "2026-10-27 21:59",
+ "updated": "2026-10-27 22:13",
  "priceSource": "키움증권 OpenAPI (154종목)",
  "fundamentalSource": "네이버 증권(EPS·BPS·ROE·컨센서스)",
+ "basis": {
+  "ttm": "2026.06",
+  "roe": "2025.12",
+  "fwd": "2026.12"
+ },
  "sectors": {
   "semiconductor": {
    "name": "반도체",

@@ -106,6 +106,20 @@ def kiwoom_quote(client, code):
             "marketCap": num(body["mac"])}
 
 
+def mode(vals):
+    vals = [v for v in vals if v]
+    return max(set(vals), key=vals.count) if vals else None
+
+
+def latest_quarter():
+    """기준 종목(삼성전자)의 최근 확정 분기 -> PER(TTM EPS)·PBR(BPS) 기준 시점"""
+    try:
+        f = get(f"{NAVER}/005930/finance/quarter")["financeInfo"]
+        return [t["title"].rstrip(".") for t in f["trTitleList"] if t["isConsensus"] == "N"][-1]
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def derive(s):
     """가격 기준으로 밸류에이션 재계산 (적자·결측은 None)"""
     p = s["price"]
@@ -154,6 +168,11 @@ def main():
         "updated": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "priceSource": f"키움증권 OpenAPI ({k_ok}종목)" if k_ok else "네이버 증권",
         "fundamentalSource": "네이버 증권(EPS·BPS·ROE·컨센서스)",
+        "basis": {  # 12월 결산 기준 (다른 결산월 종목은 시점이 다를 수 있음)
+            "ttm": latest_quarter(),
+            "roe": mode([s["roeYear"] for v in out.values() for s in v["stocks"]]),
+            "fwd": mode([s["roeFYear"] for v in out.values() for s in v["stocks"]]),
+        },
         "sectors": out,
     }
     n = sum(len(v["stocks"]) for v in out.values())
