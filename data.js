@@ -1,5 +1,5 @@
 window.ALL_DATA = {
- "updated": "2026-10-27 21:54",
+ "updated": "2026-10-27 21:59",
  "priceSource": "키움증권 OpenAPI (154종목)",
  "fundamentalSource": "네이버 증권(EPS·BPS·ROE·컨센서스)",
  "sectors": {
