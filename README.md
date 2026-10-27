@@ -22,4 +22,13 @@
 4. **Pages 켜기**: 저장소 Settings → Pages → Source = GitHub Actions
 5. **스케줄 등록**: `powershell -ExecutionPolicy Bypass -File register_task.ps1`
 
-수동 갱신: `powershell -File update.ps1`
+## 수동 업데이트
+
+`update.bat` 더블클릭, 또는 터미널에서:
+
+```
+.\update.ps1            # 수집 + 커밋 + 푸시 (1~2분 뒤 사이트 반영)
+.\update.ps1 -NoPush    # 수집만, 로컬 확인용
+```
+
+로그는 `update.log`.
