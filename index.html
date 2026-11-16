@@ -94,7 +94,7 @@ svg text{fill:var(--muted);font-size:11px}
   </div>
 </div>
 <div id="tip"></div>
-<script src="data.js"></script>
+<script>document.write('<script src="data.js?_=' + Date.now() + '"><\/script>')</script>
 <script>
 const D = window.ALL_DATA, KEYS = Object.keys(D.sectors);
 let cur = KEYS[0], S = [];
